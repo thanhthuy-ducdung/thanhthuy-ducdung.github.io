@@ -58,13 +58,13 @@
     </div>
 
     <div id="rsvpTab">
+      <div class="seg seg--small" id="attendSeg" role="group" aria-label="Lọc theo tham dự">
+        <button class="seg__btn on" data-attend="" type="button">Tất cả</button>
+        <button class="seg__btn" data-attend="Có" type="button">Sẽ đến</button>
+        <button class="seg__btn" data-attend="Không" type="button">Không đến</button>
+      </div>
       <div class="toolbar">
         <input id="q" type="search" placeholder="Tìm theo tên hoặc lời nhắn">
-        <select id="fAttend" aria-label="Lọc theo tham dự">
-          <option value="">Tất cả</option>
-          <option value="Có">Sẽ đến</option>
-          <option value="Không">Không đến</option>
-        </select>
         <button id="csv" class="btn" type="button">Xuất Excel (CSV)</button>
       </div>
       <div class="table-wrap">

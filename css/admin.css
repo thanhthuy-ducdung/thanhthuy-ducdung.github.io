@@ -67,7 +67,14 @@ input, select {
 .seg__btn { min-height: 44px; padding: .3rem .6rem; border: 0; border-radius: 999px; background: transparent; color: var(--rose-deep); font: inherit; font-size: 1.05rem; cursor: pointer; }
 .seg__btn.on { background: linear-gradient(135deg, #b5325f, #ec7aa1 55%, #b5325f); color: #fff8fa; box-shadow: 0 4px 12px rgba(181, 50, 95, .3); }
 .seg__btn small { opacity: .8; font-size: .85em; }
-.toolbar { display: grid; grid-template-columns: 1fr 150px auto; gap: 10px; margin-bottom: 12px; align-items: end; }
+.seg--small { margin-bottom: 10px; padding: 4px; }
+.seg--small .seg__btn { min-height: 36px; font-size: .98rem; }
+.toolbar { display: grid; grid-template-columns: 1fr auto; gap: 10px; margin-bottom: 12px; align-items: end; }
+/* soft rose focus ring instead of the browser's thick black outline */
+:focus { outline: none; }
+:focus-visible { outline: 2px solid var(--rose); outline-offset: 2px; }
+input:focus-visible { outline: none; border-color: var(--rose); box-shadow: 0 0 0 3px rgba(181, 50, 95, .18); }
+input[type="search"] { -webkit-appearance: none; appearance: none; }
 .toolbar input, .toolbar select { margin-top: 0; }
 .table-wrap { overflow-x: auto; background: var(--cream); border: 1px solid var(--line); border-radius: 12px; }
 table { width: 100%; border-collapse: collapse; }

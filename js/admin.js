@@ -14,6 +14,7 @@
   let wishes = [];
   let timer = null;
   let sideFilter = '';             // '' = both sides, otherwise 'Nhà trai' or 'Nhà gái'
+  let attendFilter = '';           // '' = everyone, otherwise 'Có' (will come) or 'Không' (will not)
 
   // ----- helpers ---------------------------------------------------------
   function el(tag, cls, text) {
@@ -108,6 +109,7 @@
   function renderAll() {
     $('#who').textContent = `Đã đăng nhập: ${session.email}`;
     renderSeg();
+    renderAttendSeg();
     renderStats();
     renderRsvps();
     renderWishes();
@@ -121,6 +123,19 @@
       btn.textContent = '';
       btn.append(document.createTextNode(side || 'Tất cả'), el('small', '', ` (${count})`));
       btn.classList.toggle('on', side === sideFilter);
+    });
+  }
+
+  // The second row of buttons: everyone / will come / will not come (counts follow the chosen side).
+  function renderAttendSeg() {
+    const base = sideFilter ? rsvps.filter((r) => r.side === sideFilter) : rsvps;
+    document.querySelectorAll('#attendSeg .seg__btn').forEach((btn) => {
+      const a = btn.dataset.attend;
+      const count = a === 'Có' ? base.filter((r) => r.attending === 'Có').length
+        : a === 'Không' ? base.filter((r) => r.attending !== 'Có').length : base.length;
+      btn.textContent = '';
+      btn.append(document.createTextNode(a === 'Có' ? 'Sẽ đến' : a === 'Không' ? 'Không đến' : 'Tất cả'), el('small', '', ` (${count})`));
+      btn.classList.toggle('on', a === attendFilter);
     });
   }
 
@@ -148,7 +163,7 @@
 
   function filteredRsvps() {
     const q = $('#q').value.trim().toLowerCase();
-    const a = $('#fAttend').value;
+    const a = attendFilter;
     return rsvps.filter((r) =>
       (!a || r.attending === a) && (!sideFilter || r.side === sideFilter) &&
       (!q || `${r.name} ${r.note || ''}`.toLowerCase().includes(q)));
@@ -282,11 +297,16 @@
     $('#logout').addEventListener('click', () => logout('Đã đăng xuất.'));
     $('#refresh').addEventListener('click', loadAll);
     $('#q').addEventListener('input', renderRsvps);
-    $('#fAttend').addEventListener('change', renderRsvps);
     document.querySelectorAll('#sideSeg .seg__btn').forEach((btn) => btn.addEventListener('click', () => {
       sideFilter = btn.dataset.side;
       renderSeg();
+      renderAttendSeg();
       renderStats();
+      renderRsvps();
+    }));
+    document.querySelectorAll('#attendSeg .seg__btn').forEach((btn) => btn.addEventListener('click', () => {
+      attendFilter = btn.dataset.attend;
+      renderAttendSeg();
       renderRsvps();
     }));
     $('#csv').addEventListener('click', exportCsv);
