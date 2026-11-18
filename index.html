@@ -1,0 +1,230 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Thiệp cưới Đức Dũng &amp; Thanh Thúy</title>
+  <meta name="description" content="Trân trọng kính mời bạn đến chung vui cùng gia đình chúng tôi.">
+  <!-- Link preview on Zalo / Facebook / Messenger. Edit these three lines by hand. -->
+  <meta property="og:title" content="Thiệp cưới Đức Dũng &amp; Thanh Thúy">
+  <meta property="og:description" content="Trân trọng kính mời bạn đến chung vui cùng gia đình chúng tôi.">
+  <meta property="og:type" content="website">
+  <meta name="theme-color" content="#f7f1e7">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400;1,500&family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/sparkle.css">
+</head>
+<body class="is-locked">
+
+  <svg width="0" height="0" class="sprite" aria-hidden="true">
+    <defs>
+      <radialGradient id="sealFill" cx="35%" cy="30%" r="75%">
+        <stop offset="0" stop-color="#dcc19c"/>
+        <stop offset="1" stop-color="#a27d5a"/>
+      </radialGradient>
+      <symbol id="seal" viewBox="0 0 100 100">
+        <path fill="url(#sealFill)" d="M50 4c9 0 13 6 21 8s15 1 20 9 1 14 3 22 6 14 2 22-11 9-16 15-6 14-15 16-14-3-22-3-15 5-23 1-9-12-14-18S4 67 3 58s5-13 6-21-2-16 4-22 14-4 21-7 9-4 16-4z"/>
+        <circle cx="50" cy="50" r="31" fill="none" stroke="#7b5b40" stroke-opacity=".4" stroke-width="1.5"/>
+        <path fill="none" stroke="#7b5b40" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" d="M50 68C36 58 31 50 31 43a10 10 0 0 1 19-4 10 10 0 0 1 19 4c0 7-5 15-19 25z"/>
+      </symbol>
+    </defs>
+  </svg>
+
+  <!-- ===== Cover ===== -->
+  <div class="cover" id="cover">
+    <div class="petals" id="petals" aria-hidden="true"></div>
+    <img class="decor cover__decor cover__decor--left" data-decor="flower" alt="">
+    <img class="decor cover__decor cover__decor--right" data-decor="grain" alt="">
+    <div class="envelope">
+      <div class="envelope__flap-wrap" aria-hidden="true"><div class="envelope__flap"></div></div>
+      <svg class="envelope__seal" aria-hidden="true"><use href="#seal"/></svg>
+      <p class="eyebrow">Thiệp mời cưới</p>
+      <h1 class="cover__names">
+        <span data-text="groom"></span>
+        <span class="amp">&amp;</span>
+        <span data-text="bride"></span>
+      </h1>
+      <p class="cover__date" id="coverDate"></p>
+      <p class="cover__guest" id="coverGuest" hidden>Trân trọng kính mời<br><strong id="guestName"></strong></p>
+      <button class="btn btn--solid" id="openBtn" type="button">Mở thiệp</button>
+    </div>
+  </div>
+
+  <main class="invite" id="invite">
+
+    <!-- ===== Hero ===== -->
+    <section class="section hero">
+      <img class="decor hero__decor" data-decor="leaf" data-parallax="0.12" alt="">
+      <p class="eyebrow reveal">Chúng mình cưới</p>
+      <figure class="polaroid reveal">
+        <img id="couplePhoto" alt="Ảnh cô dâu và chú rể">
+        <svg class="polaroid__seal" aria-hidden="true"><use href="#seal"/></svg>
+      </figure>
+      <h2 class="hero__names reveal">
+        <span data-text="groom"></span>
+        <span class="amp">&amp;</span>
+        <span data-text="bride"></span>
+      </h2>
+    </section>
+
+    <!-- ===== Families ===== -->
+    <section class="section families">
+      <div class="families__grid reveal">
+        <div class="family" id="familyGroom"></div>
+        <div class="family" id="familyBride"></div>
+      </div>
+      <p class="announcement reveal" id="announcement"></p>
+      <p class="families__names reveal">
+        <span data-text="groom"></span>
+        <svg class="mini-heart" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20C5 14.5 3 11 3 8a4.5 4.5 0 0 1 9-1 4.5 4.5 0 0 1 9 1c0 3-2 6.500-9 12z"/></svg>
+        <span data-text="bride"></span>
+      </p>
+    </section>
+
+    <!-- ===== Album ===== -->
+    <section class="section album-section">
+      <img class="decor album__decor" data-decor="grain" data-parallax="0.1" alt="">
+      <p class="eyebrow reveal">Khoảnh khắc</p>
+      <h2 class="title reveal">Album ảnh cưới</h2>
+      <div class="album" id="album"></div>
+    </section>
+
+    <!-- ===== Event info ===== -->
+    <section class="section event" id="event">
+      <p class="eyebrow reveal">Trân trọng kính mời</p>
+      <div data-swap><h2 class="title reveal" id="eventTitle"></h2></div>
+
+      <div class="side-switch reveal" role="group" aria-label="Chọn tiệc nhà trai hoặc nhà gái">
+        <button type="button" class="side-switch__btn" data-side="groom"></button>
+        <button type="button" class="side-switch__btn" data-side="bride"></button>
+      </div>
+
+      <div class="event__body" id="eventBody" data-swap>
+        <p class="event__time" id="eventTime"></p>
+        <p class="event__date" id="eventDate"></p>
+        <p class="event__lunar" id="eventLunar"></p>
+
+        <dl class="event__times">
+          <div><dt>Đón khách</dt><dd id="eventArrival"></dd></div>
+          <div><dt>Khai tiệc</dt><dd id="eventStart"></dd></div>
+        </dl>
+
+        <div class="calendar" id="calendar"></div>
+
+        <div class="event__actions">
+          <button class="btn btn--solid" id="rsvpBtn" type="button">Xác nhận tham dự</button>
+          <a class="btn" id="gcalLink" target="_blank" rel="noopener">Thêm vào lịch Google</a>
+          <a class="text-link" id="icsLink">Tải tệp lịch (.ics)</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== Map ===== -->
+    <section class="section map-section">
+      <img class="decor map__decor" data-decor="leaf" data-parallax="0.1" alt="">
+      <p class="eyebrow reveal">Địa điểm</p>
+      <div data-swap>
+        <h2 class="title reveal" id="venueName"></h2>
+        <p class="address reveal" id="venueAddress"></p>
+        <div class="map reveal"><iframe id="mapFrame" title="Bản đồ địa điểm tổ chức" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe></div>
+        <a class="btn reveal" id="directionsLink" target="_blank" rel="noopener">Chỉ đường</a>
+      </div>
+    </section>
+
+    <!-- ===== Guestbook ===== -->
+    <section class="section guestbook">
+      <p class="eyebrow reveal">Sổ lưu bút</p>
+      <h2 class="title reveal">Gửi lời chúc</h2>
+      <form class="form reveal" id="wishForm" novalidate>
+        <label class="field"><span>Tên của bạn</span>
+          <input name="name" type="text" maxlength="60" required autocomplete="name"></label>
+        <label class="field"><span>Lời chúc</span>
+          <textarea name="message" rows="3" maxlength="500" required></textarea></label>
+        <label class="field field--trap" aria-hidden="true"><span>Website</span>
+          <input name="website" type="text" tabindex="-1" autocomplete="off"></label>
+        <button class="btn btn--solid" type="submit">Gửi lời chúc</button>
+      </form>
+      <ul class="wishes" id="wishList" aria-live="polite"></ul>
+      <p class="wishes__empty" id="wishEmpty">Hãy là người đầu tiên gửi lời chúc.</p>
+    </section>
+
+    <!-- ===== Gift ===== -->
+    <section class="section gift">
+      <p class="eyebrow reveal">Hộp mừng cưới</p>
+      <h2 class="title reveal">Gửi quà mừng</h2>
+      <button class="giftbox reveal" id="giftBox" type="button" aria-expanded="false" aria-controls="giftPanel">
+        <span class="giftbox__lid"></span>
+        <span class="giftbox__base"></span>
+        <span class="giftbox__hint">Chạm để mở</span>
+      </button>
+      <div class="gift__panel" id="giftPanel" data-swap hidden>
+        <img class="gift__qr" id="giftQr" alt="Mã QR chuyển khoản">
+        <p class="gift__bank" id="giftBank"></p>
+        <p class="gift__name" id="giftName"></p>
+        <p class="gift__number"><span id="giftNumber"></span>
+          <button class="text-link" id="copyBtn" type="button">Sao chép</button></p>
+      </div>
+    </section>
+
+    <!-- ===== Footer ===== -->
+    <footer class="section footer">
+      <img class="decor footer__decor" data-decor="flower" alt="">
+      <p class="footer__thanks" id="thanks"></p>
+      <p class="footer__names"><span data-text="groom"></span> <span class="amp">&amp;</span> <span data-text="bride"></span></p>
+    </footer>
+  </main>
+
+  <!-- Petals drifting over the page after the cover opens -->
+  <div class="petals petals--page" id="pagePetals" aria-hidden="true"></div>
+
+  <!-- Floating music toggle -->
+  <button class="music" id="musicBtn" type="button" aria-pressed="false" aria-label="Bật hoặc tắt nhạc" hidden>
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 18V6l10-2v12"/><circle cx="6.500" cy="18" r="2.500"/><circle cx="16.500" cy="16" r="2.500"/></svg>
+  </button>
+  <audio id="bgm" loop preload="none"></audio>
+
+  <!-- RSVP dialog -->
+  <dialog class="dialog" id="rsvpDialog" aria-labelledby="rsvpTitle">
+    <form class="form" id="rsvpForm" novalidate>
+      <h2 class="title" id="rsvpTitle">Xác nhận tham dự</h2>
+      <p class="dialog__sub" id="rsvpSide"></p>
+      <label class="field"><span>Tên của bạn</span>
+        <input name="name" type="text" maxlength="60" required autocomplete="name"></label>
+      <fieldset class="field choice">
+        <legend>Bạn sẽ tham dự chứ?</legend>
+        <label><input type="radio" name="attending" value="Có" checked> Có, mình sẽ đến</label>
+        <label><input type="radio" name="attending" value="Không"> Rất tiếc, mình không đến được</label>
+      </fieldset>
+      <label class="field"><span>Số người tham dự</span>
+        <select name="guests">
+          <option>1</option><option>2</option><option>3</option><option>4</option><option>5</option>
+        </select></label>
+      <label class="field"><span>Lời nhắn (không bắt buộc)</span>
+        <textarea name="note" rows="2" maxlength="300"></textarea></label>
+      <label class="field field--trap" aria-hidden="true"><span>Website</span>
+        <input name="website" type="text" tabindex="-1" autocomplete="off"></label>
+      <div class="dialog__actions">
+        <button class="btn" type="button" id="rsvpCancel">Đóng</button>
+        <button class="btn btn--solid" type="submit">Gửi xác nhận</button>
+      </div>
+    </form>
+  </dialog>
+
+  <!-- Photo viewer -->
+  <dialog class="lightbox" id="lightbox" aria-label="Xem ảnh">
+    <button class="lightbox__nav lightbox__nav--prev" type="button" aria-label="Ảnh trước">‹</button>
+    <img id="lightboxImg" alt="">
+    <button class="lightbox__nav lightbox__nav--next" type="button" aria-label="Ảnh sau">›</button>
+    <button class="lightbox__close" type="button" aria-label="Đóng">×</button>
+  </dialog>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script src="config.js"></script>
+  <script src="assets/album/photos.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/sparkle.js"></script>
+</body>
+</html>

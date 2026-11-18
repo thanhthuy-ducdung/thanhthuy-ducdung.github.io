@@ -1,0 +1,121 @@
+/* Sparkle layer: gold foil, glow and glitter. Loaded after style.css, so it overrides it. */
+:root {
+  --gold: #b98b3e;
+  --gold-2: #e8c874;
+  --gold-3: #fff1c2;
+}
+body {
+  background:
+    radial-gradient(1100px 620px at 50% -8%, rgba(255, 238, 196, .65), transparent 62%),
+    radial-gradient(800px 520px at 105% 38%, rgba(232, 200, 116, .26), transparent 62%),
+    radial-gradient(760px 520px at -5% 72%, rgba(222, 170, 130, .24), transparent 62%),
+    var(--grain),
+    #e6dac8;
+  background-attachment: fixed, fixed, fixed, scroll, scroll;
+}
+.eyebrow { color: var(--gold); letter-spacing: .32em; text-shadow: 0 0 12px rgba(255, 236, 180, .9); }
+
+/* Couple names in moving gold foil */
+.cover__names span:not(.amp),
+.hero__names span:not(.amp),
+.families__names span:not(.amp),
+.footer__names span:not(.amp) {
+  background: linear-gradient(100deg, #946a22 0%, #cf9f41 24%, #fde9a6 44%, #d8ab4e 60%, #946a22 82%, #cf9f41 100%);
+  background-size: 240% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+  animation: gold-sheen 7s ease-in-out infinite;
+}
+.cover__names .amp, .hero__names .amp, .footer__names .amp {
+  color: var(--gold);
+  text-shadow: 0 0 16px rgba(255, 226, 150, .95), 0 0 34px rgba(232, 200, 116, .6);
+  animation: amp-glow 3.6s ease-in-out infinite;
+}
+@keyframes gold-sheen { 0% { background-position: 120% 0; } 100% { background-position: -120% 0; } }
+@keyframes amp-glow {
+  0%, 100% { opacity: .8; }
+  50% { opacity: 1; text-shadow: 0 0 22px rgba(255, 236, 170, 1), 0 0 48px rgba(232, 200, 116, .8); }
+}
+
+/* Title ornament: thin gold rule with a jewel */
+.title::after {
+  content: "";
+  display: block;
+  width: 150px;
+  height: 14px;
+  margin: 14px auto 0;
+  background:
+    linear-gradient(90deg, transparent, var(--gold) 30%, var(--gold) 70%, transparent) center / 100% 1px no-repeat,
+    radial-gradient(circle, var(--gold-2) 0 3.5px, rgba(185, 139, 62, .35) 4px 7px, transparent 7.5px) center / 14px 14px no-repeat;
+  filter: drop-shadow(0 0 4px rgba(255, 226, 150, .9));
+}
+
+/* Gold buttons with a sweeping shine */
+.btn {
+  position: relative;
+  overflow: hidden;
+  border-color: var(--gold);
+  transition: background .25s, color .25s, transform .15s, box-shadow .25s;
+}
+.btn:hover { background: rgba(232, 200, 116, .22); box-shadow: 0 6px 22px rgba(185, 139, 62, .32); }
+.btn--solid {
+  background: linear-gradient(135deg, #8e6a2c 0%, #c79a45 48%, #8e6a2c 100%);
+  color: #fffaf0;
+  border-color: #a47a34;
+  box-shadow: 0 8px 24px rgba(150, 108, 44, .38), 0 0 26px rgba(255, 226, 150, .35);
+  text-shadow: 0 1px 2px rgba(70, 46, 12, .45);
+}
+.btn--solid:hover {
+  background: linear-gradient(135deg, #a47a34 0%, #dcb45e 48%, #a47a34 100%);
+  box-shadow: 0 10px 30px rgba(150, 108, 44, .5), 0 0 34px rgba(255, 226, 150, .55);
+}
+.btn--solid::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: -60%;
+  width: 40%;
+  background: linear-gradient(100deg, transparent, rgba(255, 255, 255, .55), transparent);
+  transform: skewX(-20deg);
+  animation: btn-shine 4.6s ease-in-out infinite;
+  pointer-events: none;
+}
+@keyframes btn-shine { 0%, 55% { left: -60%; } 100% { left: 130%; } }
+
+/* Envelope and photo frame glow softly */
+.envelope {
+  box-shadow: 0 22px 60px rgba(120, 88, 44, .3), 0 0 0 1px rgba(201, 164, 92, .45), 0 0 70px rgba(255, 228, 150, .5);
+  animation: halo 5s ease-in-out infinite;
+}
+@keyframes halo {
+  0%, 100% { box-shadow: 0 22px 60px rgba(120, 88, 44, .3), 0 0 0 1px rgba(201, 164, 92, .4), 0 0 50px rgba(255, 228, 150, .35); }
+  50% { box-shadow: 0 22px 60px rgba(120, 88, 44, .3), 0 0 0 1px rgba(224, 186, 108, .75), 0 0 90px rgba(255, 232, 160, .7); }
+}
+.polaroid {
+  animation: photo-float 7s ease-in-out infinite;
+  box-shadow: 0 16px 40px rgba(94, 74, 58, .22), 0 0 0 1px rgba(201, 164, 92, .4), 0 0 46px rgba(255, 228, 150, .5);
+}
+@keyframes photo-float { 0%, 100% { translate: 0 0; } 50% { translate: 0 -8px; } }
+.family { text-shadow: 0 0 14px rgba(255, 244, 214, .9); }
+.album__item {
+  box-shadow: 0 0 0 1px rgba(201, 164, 92, .45), 0 10px 26px rgba(94, 74, 58, .16);
+  transition: box-shadow .3s, translate .3s;
+}
+.album__item:hover { translate: 0 -3px; box-shadow: 0 0 0 1px var(--gold-2), 0 14px 34px rgba(185, 139, 62, .4), 0 0 28px rgba(255, 226, 150, .6); }
+.album__frame, .polaroid.is-empty::after {
+  border-color: var(--gold-2);
+  background: linear-gradient(135deg, rgba(255, 244, 214, .7), rgba(234, 223, 206, .9));
+}
+.album__frame::after { color: var(--gold); opacity: .8; }
+.giftbox { filter: drop-shadow(0 0 14px rgba(255, 226, 150, .7)); }
+
+/* Glitter canvas (js/sparkle.js) */
+#sparkle { position: fixed; inset: 0; width: 100%; height: 100%; z-index: 55; pointer-events: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  .cover__names span, .hero__names span, .families__names span, .footer__names span,
+  .amp, .btn--solid::after, .envelope, .polaroid { animation: none !important; }
+}
