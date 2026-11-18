@@ -437,8 +437,19 @@
     spawnPetals($('#petals'), 16);
 
     const setPlaying = (on) => musicBtn.setAttribute('aria-pressed', String(on));
-    if (CFG.music) {
-      audio.src = CFG.music;
+    // config.music may be one file or a list of files: a list plays in order and starts over after the last one.
+    const tracks = [].concat(CFG.music || []).filter(Boolean);
+    let trackIndex = 0;
+    if (tracks.length) {
+      audio.src = tracks[0];
+      if (tracks.length > 1) {
+        audio.loop = false;
+        audio.addEventListener('ended', () => {
+          trackIndex = (trackIndex + 1) % tracks.length;
+          audio.src = tracks[trackIndex];
+          audio.play().catch(() => {});
+        });
+      }
       musicBtn.addEventListener('click', () => (audio.paused ? audio.play().catch(() => {}) : audio.pause()));
       audio.addEventListener('play', () => setPlaying(true));
       audio.addEventListener('pause', () => setPlaying(false));
@@ -450,7 +461,7 @@
       document.body.classList.remove('is-locked');
       toTop();
       requestAnimationFrame(toTop);
-      if (CFG.music) {
+      if (tracks.length) {
         musicBtn.hidden = false;
         audio.play().catch(() => {});
       }
