@@ -132,7 +132,6 @@ body {
   0% { box-shadow: 0 8px 24px rgba(181, 50, 95, .38), 0 0 26px rgba(255, 150, 190, .40), 0 0 0 0 rgba(236, 122, 161, .65); }
   100% { box-shadow: 0 8px 24px rgba(181, 50, 95, .38), 0 0 26px rgba(255, 150, 190, .40), 0 0 0 22px rgba(236, 122, 161, 0); }
 }
-.cover { cursor: pointer; }
 @keyframes hint-fade { 0%, 100% { opacity: .55; } 50% { opacity: 1; } }
 /* While the music is not playing (e.g. the browser blocked autoplay) the button shows a visible "Bật nhạc" label */
 .music[aria-pressed="false"] { opacity: 1; }

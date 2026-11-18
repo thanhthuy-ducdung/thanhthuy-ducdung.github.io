@@ -451,31 +451,13 @@
           audio.play().catch(() => {});
         });
       }
-      musicBtn.hidden = false;            // visible from the cover on, so it can be muted at once
       musicBtn.addEventListener('click', () => {
         if (audio.paused) { userPaused = false; audio.play().catch(() => {}); }
         else { userPaused = true; audio.pause(); }
       });
       audio.addEventListener('play', () => setPlaying(true));
       audio.addEventListener('pause', () => setPlaying(false));
-
-      // Start the music as soon as the page is entered. Browsers only allow sound after the visitor has touched
-      // the page, so: try at once, and retry on the first touch / click / key press ANYWHERE (not only on the
-      // "Mở thiệp" button) until playback has started.
-      const KICK = ['pointerdown', 'touchstart', 'touchend', 'click', 'keydown', 'wheel'];
-      const stopKick = () => KICK.forEach((ev) => document.removeEventListener(ev, kick, true));
-      const kick = (e) => {
-        if (userPaused || (e && e.target && e.target.closest && e.target.closest('#musicBtn'))) return;
-        audio.play().then(stopKick).catch(() => { /* still blocked: wait for the next gesture */ });
-      };
-      KICK.forEach((ev) => document.addEventListener(ev, kick, { capture: true, passive: true }));
-      kick();
     }
-
-    // One tap anywhere on the cover opens the card and starts the music (browsers only allow sound after a tap).
-    cover.addEventListener('click', (e) => {
-      if (!cover.classList.contains('is-open') && !e.target.closest('#openBtn')) $('#openBtn').click();
-    });
 
     $('#openBtn').addEventListener('click', () => {
       toTop();                                    // the invitation always opens at its first page
@@ -483,7 +465,11 @@
       document.body.classList.remove('is-locked');
       toTop();
       requestAnimationFrame(toTop);
-      if (tracks.length && !userPaused) audio.play().catch(() => {});
+      // The music starts only when the visitor presses "Mở thiệp"; the music button then appears to switch it off.
+      if (tracks.length) {
+        musicBtn.hidden = false;
+        audio.play().catch(() => {});
+      }
       spawnPetals($('#pagePetals'), 12);
       setTimeout(() => { $('#petals').textContent = ''; }, 1800);
     });
