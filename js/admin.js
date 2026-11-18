@@ -158,24 +158,40 @@
     const body = $('#rsvpTable tbody');
     body.textContent = '';
     const rows = filteredRsvps();
-    rows.forEach((r) => {
-      const tr = el('tr');
-      const cell = (label, text, cls) => { const td = el('td', cls || '', text); td.dataset.label = label; tr.append(td); return td; };
-      cell('Thời gian', fmt(r.created_at));
-      cell('Tên', r.name);
-      cell('Bên', r.side || '');
-      cell('Tham dự', r.attending === 'Có' ? 'Sẽ đến' : 'Không đến', r.attending === 'Có' ? 'yes' : 'no');
-      cell('Số người', r.attending === 'Có' ? String(r.guests) : '-', 'num');
-      cell('Lời nhắn', r.note || '', 'note');
-      const act = el('td');
-      const del = el('button', 'btn small danger', 'Xóa');
-      del.type = 'button';
-      del.addEventListener('click', () => removeRsvp(r));
-      act.append(del);
-      tr.append(act);
-      body.append(tr);
+    // Two lists, each with its own heading and totals: guests who will come, then guests who will not.
+    const groups = [
+      ['Khách sẽ đến', 'yes', rows.filter((r) => r.attending === 'Có')],
+      ['Khách không đến', 'no', rows.filter((r) => r.attending !== 'Có')],
+    ];
+    groups.forEach(([title, cls, items]) => {
+      if (!items.length) return;
+      const people = cls === 'yes' ? items.reduce((s, r) => s + (Number(r.guests) || 0), 0) : 0;
+      const head = el('tr', `group ${cls}`);
+      const cell = el('td', '', `${title}: ${items.length} lượt` + (cls === 'yes' ? ` · ${people} người` : ''));
+      cell.colSpan = 7;
+      head.append(cell);
+      body.append(head);
+      items.forEach((r) => body.append(rsvpRow(r)));
     });
     $('#rsvpEmpty').hidden = rows.length > 0;
+  }
+
+  function rsvpRow(r) {
+    const tr = el('tr');
+    const cell = (label, text, cls) => { const td = el('td', cls || '', text); td.dataset.label = label; tr.append(td); return td; };
+    cell('Thời gian', fmt(r.created_at));
+    cell('Tên', r.name);
+    cell('Bên', r.side || '');
+    cell('Tham dự', r.attending === 'Có' ? 'Sẽ đến' : 'Không đến', r.attending === 'Có' ? 'yes' : 'no');
+    cell('Số người', r.attending === 'Có' ? String(r.guests) : '-', 'num');
+    cell('Lời nhắn', r.note || '', 'note');
+    const act = el('td');
+    const del = el('button', 'btn small danger', 'Xóa');
+    del.type = 'button';
+    del.addEventListener('click', () => removeRsvp(r));
+    act.append(del);
+    tr.append(act);
+    return tr;
   }
 
   function renderWishes() {

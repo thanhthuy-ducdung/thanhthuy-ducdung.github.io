@@ -73,6 +73,9 @@ table { width: 100%; border-collapse: collapse; }
 th, td { padding: .6rem .8rem; text-align: left; border-bottom: 1px solid #f3d3dd; vertical-align: top; }
 th { font-family: var(--display); font-weight: 500; font-size: .9rem; color: var(--rose-deep); background: #fbdde6; white-space: nowrap; }
 td.num { text-align: center; }
+tr.group td { padding: .7rem .8rem; font-family: var(--display); font-size: 1.05rem; font-weight: 500; border-bottom: 2px solid var(--line); }
+tr.group.yes td { background: #e6f3ea; color: var(--ok); }
+tr.group.no td { background: #fbe3e8; color: var(--no); }
 .yes { color: var(--ok); font-weight: 500; }
 .no { color: var(--no); font-weight: 500; }
 .note { max-width: 320px; word-break: break-word; }
