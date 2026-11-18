@@ -124,6 +124,18 @@ body {
 .btn--icon svg { width: 1.15em; height: 1.15em; margin-right: .5em; fill: currentColor; flex: none; }
 #directionsLink { min-width: 11rem; margin-top: 4px; }
 
+/* Cover: heartbeat seal and a pulsing "Mở thiệp" button that invites a tap */
+.envelope__seal { animation: seal-beat 1.3s ease-in-out infinite; }
+@keyframes seal-beat { 0%, 100% { scale: 1; } 14% { scale: 1.1; } 28% { scale: 1; } 42% { scale: 1.07; } }
+#openBtn { animation: open-ring 1.8s ease-out infinite; }
+@keyframes open-ring {
+  0% { box-shadow: 0 8px 24px rgba(181, 50, 95, .38), 0 0 26px rgba(255, 150, 190, .40), 0 0 0 0 rgba(236, 122, 161, .65); }
+  100% { box-shadow: 0 8px 24px rgba(181, 50, 95, .38), 0 0 26px rgba(255, 150, 190, .40), 0 0 0 22px rgba(236, 122, 161, 0); }
+}
+/* the music button stays above the cover so the visitor can always mute */
+.music { z-index: 60; }
+@media (prefers-reduced-motion: reduce) { .envelope__seal, #openBtn { animation: none !important; } }
+
 /* Venue switch sits right under the "Địa điểm" label: give it breathing room */
 .map-section .side-switch { margin: 18px auto 26px; }
 

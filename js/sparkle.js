@@ -11,6 +11,44 @@
   let w = 0, h = 0, dpr = 1, raf = 0;
   let stars = [];
   const burst = [];
+  const confetti = [];
+  const CONFETTI_COLORS = ['255,143,180', '255,214,230', '255,255,255', '255,205,130', '236,122,161', '255,176,204'];
+
+  // A shower of pink paper confetti and little hearts falling from the top of the screen.
+  function popConfetti() {
+    for (let i = 0; i < 150; i++) {
+      confetti.push({
+        x: Math.random() * w,
+        y: -20 - Math.random() * h * 0.7,
+        vx: (Math.random() - 0.5) * 1.4,
+        vy: 1.8 + Math.random() * 3.4,
+        rot: Math.random() * Math.PI * 2,
+        vr: (Math.random() - 0.5) * 0.3,
+        s: 6 + Math.random() * 8,
+        c: CONFETTI_COLORS[(Math.random() * CONFETTI_COLORS.length) | 0],
+        heart: Math.random() < 0.25,
+      });
+    }
+  }
+
+  function drawConfetti(p) {
+    ctx.save();
+    ctx.translate(p.x, p.y);
+    ctx.rotate(p.rot);
+    ctx.scale(Math.cos(p.rot * 2), 1);                 // flutter
+    ctx.fillStyle = `rgba(${p.c},.95)`;
+    if (p.heart) {
+      const s = p.s * 0.9;
+      ctx.beginPath();
+      ctx.moveTo(0, s * 0.35);
+      ctx.bezierCurveTo(-s, -s * 0.35, -s * 0.5, -s, 0, -s * 0.4);
+      ctx.bezierCurveTo(s * 0.5, -s, s, -s * 0.35, 0, s * 0.35);
+      ctx.fill();
+    } else {
+      ctx.fillRect(-p.s / 2, -p.s / 3, p.s, p.s * 0.6);
+    }
+    ctx.restore();
+  }
 
   function make(anywhere) {
     return {
@@ -73,6 +111,14 @@
       if (b.life <= 0) { burst.splice(i, 1); continue; }
       glint(b.x, b.y, b.r, Math.min(1, b.life * 1.4), b.c);
     }
+    for (let i = confetti.length - 1; i >= 0; i--) {
+      const p = confetti[i];
+      p.x += p.vx + Math.sin(p.y / 38) * 0.7;
+      p.y += p.vy;
+      p.rot += p.vr;
+      if (p.y > h + 24) { confetti.splice(i, 1); continue; }
+      drawConfetti(p);
+    }
     raf = requestAnimationFrame(frame);
   }
 
@@ -94,7 +140,8 @@
       const r = openBtn.getBoundingClientRect();
       const cx = r.left + r.width / 2;
       const cy = r.top + r.height / 2;
-      for (let i = 0; i < 90; i++) {
+      popConfetti();
+      for (let i = 0; i < 140; i++) {
         const a = Math.random() * Math.PI * 2;
         const sp = 1.2 + Math.random() * 4.2;
         burst.push({

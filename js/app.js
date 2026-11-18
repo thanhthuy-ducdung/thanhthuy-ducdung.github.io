@@ -440,6 +440,7 @@
     // config.music may be one file or a list of files: a list plays in order and starts over after the last one.
     const tracks = [].concat(CFG.music || []).filter(Boolean);
     let trackIndex = 0;
+    let userPaused = false;               // the visitor switched the music off: never restart it on their behalf
     if (tracks.length) {
       audio.src = tracks[0];
       if (tracks.length > 1) {
@@ -450,9 +451,25 @@
           audio.play().catch(() => {});
         });
       }
-      musicBtn.addEventListener('click', () => (audio.paused ? audio.play().catch(() => {}) : audio.pause()));
+      musicBtn.hidden = false;            // visible from the cover on, so it can be muted at once
+      musicBtn.addEventListener('click', () => {
+        if (audio.paused) { userPaused = false; audio.play().catch(() => {}); }
+        else { userPaused = true; audio.pause(); }
+      });
       audio.addEventListener('play', () => setPlaying(true));
       audio.addEventListener('pause', () => setPlaying(false));
+
+      // Start the music as soon as the page is entered. Browsers only allow sound after the visitor has touched
+      // the page, so: try at once, and retry on the first touch / click / key press ANYWHERE (not only on the
+      // "Mở thiệp" button) until playback has started.
+      const KICK = ['pointerdown', 'touchstart', 'touchend', 'click', 'keydown', 'wheel'];
+      const stopKick = () => KICK.forEach((ev) => document.removeEventListener(ev, kick, true));
+      const kick = (e) => {
+        if (userPaused || (e && e.target && e.target.closest && e.target.closest('#musicBtn'))) return;
+        audio.play().then(stopKick).catch(() => { /* still blocked: wait for the next gesture */ });
+      };
+      KICK.forEach((ev) => document.addEventListener(ev, kick, { capture: true, passive: true }));
+      kick();
     }
 
     $('#openBtn').addEventListener('click', () => {
@@ -461,10 +478,7 @@
       document.body.classList.remove('is-locked');
       toTop();
       requestAnimationFrame(toTop);
-      if (tracks.length) {
-        musicBtn.hidden = false;
-        audio.play().catch(() => {});
-      }
+      if (tracks.length && !userPaused) audio.play().catch(() => {});
       spawnPetals($('#pagePetals'), 12);
       setTimeout(() => { $('#petals').textContent = ''; }, 1800);
     });
