@@ -111,8 +111,30 @@ tr.group.no td { background: #fbe3e8; color: var(--no); }
   .toolbar { grid-template-columns: 1fr; }
   table, thead, tbody, tr, td { display: block; }
   thead { display: none; }
-  tr { padding: 10px 12px; border-bottom: 1px solid #f3d3dd; }
-  td { border: 0; padding: .15rem 0; }
-  td.num { text-align: left; }
-  td[data-label]::before { content: attr(data-label) ": "; color: var(--rose); font-size: .85rem; }
+  td { border: 0; padding: 0; }
+  tr.group td { padding: .65rem .8rem; }
+
+  /* compact grid, one guest per entry:  Name ........ 4 người ... Xóa
+                                         Nhà gái ............ 17:00 18/11/2026
+                                         (note, if any)                                  */
+  tr:not(.group) {
+    display: grid;
+    grid-template-columns: 1fr auto auto;
+    column-gap: 10px;
+    row-gap: 2px;
+    align-items: center;
+    padding: 9px 12px;
+    border-bottom: 1px solid #f3d3dd;
+  }
+  tr:not(.group) td { min-width: 0; }
+  tr:not(.group) td::before { content: none; }
+  tr:not(.group) td:nth-child(2) { grid-column: 1; grid-row: 1; font-weight: 600; font-size: 1.08rem; color: var(--rose-deep); }   /* name */
+  tr:not(.group) td:nth-child(5) { grid-column: 2; grid-row: 1; text-align: right; font-weight: 500; color: var(--rose); }          /* people */
+  tr:not(.group) td:nth-child(7) { grid-column: 3; grid-row: 1; }                                                                  /* delete */
+  tr:not(.group) td:nth-child(3) { grid-column: 1; grid-row: 2; font-size: .88rem; color: var(--rose); }                           /* side */
+  tr:not(.group) td:nth-child(1) { grid-column: 2 / 4; grid-row: 2; text-align: right; font-size: .78rem; color: #a07a88; }        /* time */
+  tr:not(.group) td:nth-child(4) { display: none; }                                                                                /* the group heading already says it */
+  tr:not(.group) td:nth-child(6) { grid-column: 1 / -1; grid-row: 3; font-size: .95rem; font-style: italic; }                      /* note */
+  tr:not(.group) td:nth-child(6):empty { display: none; }
+  tr:not(.group) .btn.small { min-height: 28px; padding: .1rem .65rem; font-size: .85rem; }
 }

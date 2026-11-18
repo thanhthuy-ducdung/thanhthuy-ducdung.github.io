@@ -198,7 +198,7 @@
     cell('Tên', r.name);
     cell('Bên', r.side || '');
     cell('Tham dự', r.attending === 'Có' ? 'Sẽ đến' : 'Không đến', r.attending === 'Có' ? 'yes' : 'no');
-    cell('Số người', r.attending === 'Có' ? String(r.guests) : '-', 'num');
+    cell('Số người', r.attending === 'Có' ? `${r.guests} người` : '', 'num');
     cell('Lời nhắn', r.note || '', 'note');
     const act = el('td');
     const del = el('button', 'btn small danger', 'Xóa');
