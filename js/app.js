@@ -283,7 +283,26 @@
     try { return JSON.parse(localStorage.getItem(DEMO_KEY)) || []; } catch (e) { return []; }
   }
 
+  // Supabase (optional, free database). Only the public "anon" key is used here: row-level security in the
+  // database lets visitors ADD rows but never read RSVPs, and wishes appear only after the couple approves them.
+  const SB = CFG.supabase && CFG.supabase.url && CFG.supabase.anonKey
+    ? { url: CFG.supabase.url.replace(/\/+$/, ''), key: CFG.supabase.anonKey } : null;
+  const sbHeaders = () => ({ apikey: SB.key, Authorization: `Bearer ${SB.key}`, 'Content-Type': 'application/json' });
+
   async function send(payload) {
+    if (SB) {
+      const isWish = payload.type === 'wish';
+      const row = isWish
+        ? { name: payload.name, message: payload.message }
+        : { name: payload.name, side: payload.side, attending: payload.attending, guests: payload.guests, note: payload.note || null };
+      const res = await fetch(`${SB.url}/rest/v1/${isWish ? 'wishes' : 'rsvps'}`, {
+        method: 'POST',
+        headers: { ...sbHeaders(), Prefer: 'return=minimal' },
+        body: JSON.stringify(row),
+      });
+      if (!res.ok) throw new Error(`Database rejected the request (${res.status})`);
+      return { ok: true };
+    }
     if (!CFG.sheetEndpoint) {
       // No Sheet connected yet: keep wishes in this browser so the page can be tried out.
       if (payload.type === 'wish') {
@@ -307,7 +326,12 @@
   async function loadWishes() {
     let wishes = [];
     try {
-      if (CFG.sheetEndpoint) {
+      if (SB) {
+        const res = await fetch(`${SB.url}/rest/v1/wishes?select=name,message,created_at&approved=eq.true&order=created_at.desc&limit=50`,
+          { headers: sbHeaders() });
+        if (!res.ok) throw new Error(`Could not load wishes (${res.status})`);
+        wishes = (await res.json()).map((w) => ({ name: w.name, message: w.message, time: w.created_at }));
+      } else if (CFG.sheetEndpoint) {
         const res = await fetch(`${CFG.sheetEndpoint}?action=wishes`);
         wishes = (await res.json()).wishes || [];
       } else {

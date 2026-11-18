@@ -81,6 +81,11 @@ window.WEDDING_CONFIG = {
   // While this is empty, RSVPs and wishes are only kept in the visitor's own browser (nobody receives them).
   sheetEndpoint: "",
 
+  // Free database (Supabase) that receives RSVPs and wishes; you read them on admin.html.
+  // Only the PUBLIC "anon" key goes here (it is safe: the database lets visitors add rows, never read RSVPs).
+  // Leave both empty until the Supabase project is created; the card then only keeps entries in the visitor's browser.
+  supabase: { url: "", anonKey: "" },
+
   thanks: "Sự hiện diện của quý khách là niềm vinh hạnh cho gia đình chúng tôi.",
 
   // Decorations. Swap a file here to change the artwork.

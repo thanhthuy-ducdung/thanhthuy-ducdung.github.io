@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self' https://*.supabase.co; object-src 'none'; base-uri 'self'; form-action 'none'; frame-ancestors 'none'">
+  <title>Quản lý khách mời</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;500;600&family=EB+Garamond:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/admin.css">
+</head>
+<body>
+<main class="admin">
+  <header class="head">
+    <p class="eyebrow">Trang quản lý</p>
+    <h1>Danh sách khách mời</h1>
+    <p class="sub">Thanh Thúy &amp; Đức Dũng</p>
+  </header>
+
+  <!-- Database not connected yet -->
+  <section id="setup" class="card" hidden>
+    <h2>Chưa nối cơ sở dữ liệu</h2>
+    <p>Mở file <b>config.js</b>, điền <b>supabase.url</b> và <b>supabase.anonKey</b> theo file hướng dẫn, rồi tải lại trang này.</p>
+  </section>
+
+  <!-- Login -->
+  <section id="login" class="card narrow" hidden>
+    <h2>Đăng nhập</h2>
+    <form id="loginForm" autocomplete="on">
+      <label>Email<input id="email" name="email" type="email" autocomplete="username" required></label>
+      <label>Mật khẩu<input id="password" name="password" type="password" autocomplete="current-password" required></label>
+      <button class="btn solid" type="submit">Đăng nhập</button>
+    </form>
+  </section>
+
+  <!-- Admin panel -->
+  <section id="panel" hidden>
+    <div class="bar">
+      <span id="who" class="who"></span>
+      <span class="spacer"></span>
+      <button id="refresh" class="btn" type="button">Làm mới</button>
+      <button id="logout" class="btn" type="button">Đăng xuất</button>
+    </div>
+
+    <div id="stats" class="stats"></div>
+
+    <div class="tabs" role="tablist">
+      <button class="tab on" data-tab="rsvp" type="button" role="tab">Xác nhận tham dự</button>
+      <button class="tab" data-tab="wish" type="button" role="tab">Lời chúc <span id="pending" class="badge" hidden></span></button>
+    </div>
+
+    <div id="rsvpTab">
+      <div class="toolbar">
+        <input id="q" type="search" placeholder="Tìm theo tên hoặc lời nhắn">
+        <select id="fAttend" aria-label="Lọc theo tham dự">
+          <option value="">Tất cả</option>
+          <option value="Có">Sẽ đến</option>
+          <option value="Không">Không đến</option>
+        </select>
+        <select id="fSide" aria-label="Lọc theo bên">
+          <option value="">Cả hai bên</option>
+          <option value="Nhà trai">Nhà trai</option>
+          <option value="Nhà gái">Nhà gái</option>
+        </select>
+        <button id="csv" class="btn" type="button">Xuất Excel (CSV)</button>
+      </div>
+      <div class="table-wrap">
+        <table id="rsvpTable">
+          <thead><tr><th>Thời gian</th><th>Tên</th><th>Bên</th><th>Tham dự</th><th>Số người</th><th>Lời nhắn</th><th></th></tr></thead>
+          <tbody></tbody>
+        </table>
+      </div>
+      <p id="rsvpEmpty" class="empty" hidden>Chưa có ai xác nhận.</p>
+    </div>
+
+    <div id="wishTab" hidden>
+      <p class="hint">Lời chúc chỉ hiện trên thiệp sau khi bạn bấm <b>Duyệt</b>.</p>
+      <ul id="wishAdmin" class="wish-list"></ul>
+      <p id="wishEmpty" class="empty" hidden>Chưa có lời chúc nào.</p>
+    </div>
+  </section>
+
+  <p id="msg" class="msg" role="status" aria-live="polite"></p>
+</main>
+<script src="config.js"></script>
+<script src="js/admin.js"></script>
+</body>
+</html>
