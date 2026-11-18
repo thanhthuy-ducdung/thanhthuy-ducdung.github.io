@@ -63,6 +63,7 @@
     $('#setup').hidden = which !== 'setup';
     $('#login').hidden = which !== 'login';
     $('#panel').hidden = which !== 'panel';
+    $('.admin').classList.toggle('is-centered', which !== 'panel');
   }
 
   async function login(email, password) {

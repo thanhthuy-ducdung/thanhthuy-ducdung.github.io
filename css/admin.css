@@ -21,7 +21,10 @@ body {
   font-size: 1.05rem;
   line-height: 1.45;
 }
-.admin { max-width: 1040px; margin: 0 auto; padding: 28px 16px 60px; }
+.admin { max-width: 1040px; min-height: 100vh; min-height: 100dvh; margin: 0 auto; padding: 28px 16px 60px; display: flex; flex-direction: column; }
+/* login / setup screens: centred in the middle of the page (a little above the exact middle looks better) */
+.admin.is-centered { justify-content: center; padding-bottom: 14vh; }
+.admin.is-centered .card { width: 100%; }
 .head { text-align: center; margin-bottom: 22px; }
 .eyebrow { margin: 0; letter-spacing: .3em; text-transform: uppercase; font-size: .8rem; color: var(--rose); }
 h1 { margin: .2rem 0; font-family: var(--display); font-weight: 500; color: var(--rose-deep); font-size: clamp(1.6rem, 6vw, 2.2rem); }
