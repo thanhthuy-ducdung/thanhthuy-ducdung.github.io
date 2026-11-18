@@ -472,6 +472,11 @@
       kick();
     }
 
+    // One tap anywhere on the cover opens the card and starts the music (browsers only allow sound after a tap).
+    cover.addEventListener('click', (e) => {
+      if (!cover.classList.contains('is-open') && !e.target.closest('#openBtn')) $('#openBtn').click();
+    });
+
     $('#openBtn').addEventListener('click', () => {
       toTop();                                    // the invitation always opens at its first page
       cover.classList.add('is-opening', 'is-open');
