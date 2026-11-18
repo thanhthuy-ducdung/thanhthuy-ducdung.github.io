@@ -7,7 +7,7 @@
   canvas.setAttribute('aria-hidden', 'true');
   document.body.append(canvas);
   const ctx = canvas.getContext('2d');
-  const COLORS = ['255,241,194', '240,208,120', '255,255,255', '232,190,96'];
+  const COLORS = ['255,226,236', '255,170,200', '255,255,255', '244,143,180'];
   let w = 0, h = 0, dpr = 1, raf = 0;
   let stars = [];
   const burst = [];

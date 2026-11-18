@@ -1,0 +1,28 @@
+/* Wider layout for tablets and computers. The phone layout (single column) is the default in style.css. */
+@media (min-width: 900px) {
+  html { font-size: 18px; }
+  .invite {
+    max-width: 1080px;
+    margin: 32px auto;
+    border-radius: 28px;
+    box-shadow: 0 30px 90px rgba(110, 42, 69, .22), 0 0 0 1px rgba(236, 178, 196, .6);
+  }
+  .section { padding: 104px 64px; }
+  .hero { padding-top: 112px; }
+  .hero__decor { right: 6%; width: 230px; }
+  .polaroid { width: min(44%, 380px); }
+  .families__grid { max-width: 780px; margin-left: auto; margin-right: auto; }
+  .album { max-width: 900px; margin-left: auto; margin-right: auto; }
+  .album--grid { grid-template-columns: repeat(3, 1fr); gap: 18px; }
+  .event__times, .calendar { max-width: 460px; }
+  .map { max-width: 820px; margin-left: auto; margin-right: auto; }
+  .map iframe { height: 420px; }
+  .form { max-width: 600px; margin-left: auto; margin-right: auto; }
+  .wishes { max-width: 640px; margin-left: auto; margin-right: auto; }
+  .side-switch { margin-left: auto; margin-right: auto; }
+  .cover__decor--left { width: 300px; }
+  .cover__decor--right { width: 160px; }
+}
+@media (min-width: 1280px) {
+  .invite { max-width: 1160px; }
+}

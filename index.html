@@ -9,25 +9,26 @@
   <meta property="og:title" content="Thiệp cưới Đức Dũng &amp; Thanh Thúy">
   <meta property="og:description" content="Trân trọng kính mời bạn đến chung vui cùng gia đình chúng tôi.">
   <meta property="og:type" content="website">
-  <meta name="theme-color" content="#f7f1e7">
+  <meta name="theme-color" content="#f9e5ea">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400;1,500&family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="css/sparkle.css">
+  <link rel="stylesheet" href="css/desktop.css">
 </head>
 <body class="is-locked">
 
   <svg width="0" height="0" class="sprite" aria-hidden="true">
     <defs>
       <radialGradient id="sealFill" cx="35%" cy="30%" r="75%">
-        <stop offset="0" stop-color="#dcc19c"/>
-        <stop offset="1" stop-color="#a27d5a"/>
+        <stop offset="0" stop-color="#dc9cad"/>
+        <stop offset="1" stop-color="#a4586c"/>
       </radialGradient>
       <symbol id="seal" viewBox="0 0 100 100">
         <path fill="url(#sealFill)" d="M50 4c9 0 13 6 21 8s15 1 20 9 1 14 3 22 6 14 2 22-11 9-16 15-6 14-15 16-14-3-22-3-15 5-23 1-9-12-14-18S4 67 3 58s5-13 6-21-2-16 4-22 14-4 21-7 9-4 16-4z"/>
-        <circle cx="50" cy="50" r="31" fill="none" stroke="#7b5b40" stroke-opacity=".4" stroke-width="1.5"/>
-        <path fill="none" stroke="#7b5b40" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" d="M50 68C36 58 31 50 31 43a10 10 0 0 1 19-4 10 10 0 0 1 19 4c0 7-5 15-19 25z"/>
+        <circle cx="50" cy="50" r="31" fill="none" stroke="#7b4050" stroke-opacity=".4" stroke-width="1.5"/>
+        <path fill="none" stroke="#7b4050" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" d="M50 68C36 58 31 50 31 43a10 10 0 0 1 19-4 10 10 0 0 1 19 4c0 7-5 15-19 25z"/>
       </symbol>
     </defs>
   </svg>
@@ -125,6 +126,10 @@
     <section class="section map-section">
       <img class="decor map__decor" data-decor="leaf" data-parallax="0.1" alt="">
       <p class="eyebrow reveal">Địa điểm</p>
+      <div class="side-switch reveal" role="group" aria-label="Chọn địa điểm nhà trai hoặc nhà gái">
+        <button type="button" class="side-switch__btn" data-side="groom"></button>
+        <button type="button" class="side-switch__btn" data-side="bride"></button>
+      </div>
       <div data-swap>
         <h2 class="title reveal" id="venueName"></h2>
         <p class="address reveal" id="venueAddress"></p>

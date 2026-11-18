@@ -79,7 +79,11 @@
     const weekday = hasDate ? WEEKDAYS[new Date(y, m - 1, d).getDay()] : '';
     const dateText = hasDate ? `${pad(d)}.${pad(m)}.${y}` : '';
     const timeText = hasTime ? `${pad(hh)}:${pad(mm)}` : '';
-    const blankIf = (node, text, blank = BLANK) => { node.textContent = text || blank; node.classList.toggle('is-blank', !text); };
+    const blankIf = (node, text, blank = BLANK) => {
+      if (!node) return;
+      node.textContent = text || blank;
+      node.classList.toggle('is-blank', !text);
+    };
 
     renderSwitch();
     blankIf($('#coverDate'), dateText);
@@ -89,8 +93,8 @@
     $('#eventLunar').textContent = ev.lunar ? `(${ev.lunar})` : '';
     blankIf($('#eventArrival'), ev.arrival, '--:--');
     blankIf($('#eventStart'), timeText, '--:--');
-    blankIf($('#venueName'), ev.venue);
-    blankIf($('#venueAddress'), ev.address);
+    blankIf($('#venueName'), ev.venue, `Địa điểm ${ev.label.toLowerCase()}`);
+    blankIf($('#venueAddress'), ev.address, 'Thông tin sẽ được cập nhật');
     $('#rsvpSide').textContent = [ev.title, ev.label, dateText].filter(Boolean).join(' · ');
 
     // Calendar, map and calendar links need real data: hide them while blank.
@@ -198,7 +202,7 @@
   let swapTimer;
 
   function renderSwitch() {
-    $('.side-switch').dataset.side = side;
+    $$('.side-switch').forEach((sw) => { sw.dataset.side = side; }); // event switch and venue switch stay in sync
     $$('.side-switch__btn').forEach((btn) => {
       btn.setAttribute('aria-pressed', String(btn.dataset.side === side));
     });
