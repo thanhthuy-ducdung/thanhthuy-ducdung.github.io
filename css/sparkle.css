@@ -22,6 +22,8 @@ body {
 .footer__names span:not(.amp) {
   background: linear-gradient(100deg, #946a22 0%, #cf9f41 24%, #fde9a6 44%, #d8ab4e 60%, #946a22 82%, #cf9f41 100%);
   background-size: 240% 100%;
+  padding-bottom: .14em;   /* room for descenders (y, g) inside the gold-clipped box */
+  margin-bottom: -.14em;
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
