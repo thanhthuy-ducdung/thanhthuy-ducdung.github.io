@@ -84,7 +84,10 @@ window.WEDDING_CONFIG = {
   // Free database (Supabase) that receives RSVPs and wishes; you read them on admin.html.
   // Only the PUBLIC "anon" key goes here (it is safe: the database lets visitors add rows, never read RSVPs).
   // Leave both empty until the Supabase project is created; the card then only keeps entries in the visitor's browser.
-  supabase: { url: "", anonKey: "" },
+  supabase: {
+    url: "https://rxevsmkctkwkzqgcnktj.supabase.co",
+    anonKey: "sb_publishable_IJxZUI-i7nzfcbj5-d-7pw_ugG0hjb1",   // public key by design; never put the secret key here
+  },
 
   thanks: "Sự hiện diện của quý khách là niềm vinh hạnh cho gia đình chúng tôi.",
 

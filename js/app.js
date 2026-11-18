@@ -287,7 +287,12 @@
   // database lets visitors ADD rows but never read RSVPs, and wishes appear only after the couple approves them.
   const SB = CFG.supabase && CFG.supabase.url && CFG.supabase.anonKey
     ? { url: CFG.supabase.url.replace(/\/+$/, ''), key: CFG.supabase.anonKey } : null;
-  const sbHeaders = () => ({ apikey: SB.key, Authorization: `Bearer ${SB.key}`, 'Content-Type': 'application/json' });
+  // New-style "sb_publishable_..." keys are not JWTs: they go in the apikey header only. Old JWT anon keys also go in Authorization.
+  const sbHeaders = () => {
+    const h = { apikey: SB.key, 'Content-Type': 'application/json' };
+    if (!SB.key.startsWith('sb_')) h.Authorization = `Bearer ${SB.key}`;
+    return h;
+  };
 
   async function send(payload) {
     if (SB) {
