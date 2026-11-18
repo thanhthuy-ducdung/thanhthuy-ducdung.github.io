@@ -80,7 +80,7 @@ td.num { text-align: center; }
 
 .wish-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
 .wish { background: var(--cream); border: 1px solid var(--line); border-radius: 12px; padding: 14px; }
-.wish.pending { border-color: var(--rose); box-shadow: 0 0 0 2px rgba(181, 50, 95, .12); }
+.wish.pending { opacity: .6; border-style: dashed; }   /* hidden from the card */
 .wish__top { display: flex; gap: 8px; flex-wrap: wrap; align-items: baseline; margin-bottom: 4px; }
 .wish__name { font-weight: 600; color: var(--rose-deep); }
 .wish__time { font-size: .85rem; color: var(--rose); }

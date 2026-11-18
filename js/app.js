@@ -388,8 +388,8 @@
     const wishForm = $('#wishForm');
     setupForm(wishForm, (d) => ({ type: 'wish', name: d.name.trim(), message: d.message.trim() }), (payload, result) => {
       wishForm.reset();
-      if (!result.demo) {
-        // Wishes are shown only after the couple approves them in the Sheet.
+      if (!result.demo && !SB) {
+        // Google Sheet mode: wishes are shown only after the couple approves them in the Sheet.
         toast('Cảm ơn bạn! Lời chúc sẽ hiển thị sau khi được duyệt.');
         return;
       }

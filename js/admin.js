@@ -181,17 +181,16 @@
   function renderWishes() {
     const list = $('#wishAdmin');
     list.textContent = '';
-    const pending = wishes.filter((w) => !w.approved).length;
     const badge = $('#pending');
-    badge.hidden = pending === 0;
-    badge.textContent = String(pending);
+    badge.hidden = wishes.length === 0;
+    badge.textContent = String(wishes.length);
     wishes.forEach((w) => {
-      const li = el('li', 'wish' + (w.approved ? '' : ' pending'));
+      const li = el('li', 'wish' + (w.approved ? '' : ' pending'));        // dimmed when hidden from the card
       const top = el('div', 'wish__top');
       top.append(el('span', 'wish__name', w.name), el('span', 'wish__time', fmt(w.created_at)),
-        el('span', 'wish__state ' + (w.approved ? 'yes' : 'no'), w.approved ? 'Đang hiện trên thiệp' : 'Chờ duyệt'));
+        el('span', 'wish__state ' + (w.approved ? 'yes' : 'no'), w.approved ? 'Đang hiện trên thiệp' : 'Đã ẩn'));
       const actions = el('div', 'wish__actions');
-      const toggle = el('button', 'btn small', w.approved ? 'Ẩn' : 'Duyệt');
+      const toggle = el('button', 'btn small', w.approved ? 'Ẩn' : 'Hiện lại');
       toggle.type = 'button';
       toggle.addEventListener('click', () => setApproved(w, !w.approved));
       const del = el('button', 'btn small danger', 'Xóa');
