@@ -57,7 +57,7 @@ window.WEDDING_CONFIG = {
       lunar: "",
       venue: "Tư gia nhà gái",
       address: "Thôn An Bình, Xã Nam Tiên Hưng, Tỉnh Hưng Yên",
-      mapQuery: "",
+      mapQuery: "20.525148,106.288985",   // exact pin of the bride's house (from the shared Google Maps link)
     },
   },
 
