@@ -120,6 +120,10 @@ body {
 .gift .title { font-size: 1.15rem; }
 .gift .title::after { display: none; }
 
+/* "Chỉ đường" button: solid rose with a map pin */
+.btn--icon svg { width: 1.15em; height: 1.15em; margin-right: .5em; fill: currentColor; flex: none; }
+#directionsLink { min-width: 11rem; margin-top: 4px; }
+
 /* Venue switch sits right under the "Địa điểm" label: give it breathing room */
 .map-section .side-switch { margin: 18px auto 26px; }
 
