@@ -13,6 +13,7 @@
   let rsvps = [];
   let wishes = [];
   let timer = null;
+  let sideFilter = '';             // '' = both sides, otherwise 'Nhà trai' or 'Nhà gái'
 
   // ----- helpers ---------------------------------------------------------
   function el(tag, cls, text) {
@@ -106,23 +107,36 @@
   // ----- render ----------------------------------------------------------
   function renderAll() {
     $('#who').textContent = `Đã đăng nhập: ${session.email}`;
+    renderSeg();
     renderStats();
     renderRsvps();
     renderWishes();
   }
 
+  // The three big buttons: all / groom's side / bride's side, each with its number of replies.
+  function renderSeg() {
+    document.querySelectorAll('#sideSeg .seg__btn').forEach((btn) => {
+      const side = btn.dataset.side;
+      const count = side ? rsvps.filter((r) => r.side === side).length : rsvps.length;
+      btn.textContent = '';
+      btn.append(document.createTextNode(side || 'Tất cả'), el('small', '', ` (${count})`));
+      btn.classList.toggle('on', side === sideFilter);
+    });
+  }
+
   function renderStats() {
-    const yes = rsvps.filter((r) => r.attending === 'Có');
-    const no = rsvps.filter((r) => r.attending !== 'Có');
+    const base = sideFilter ? rsvps.filter((r) => r.side === sideFilter) : rsvps;   // numbers follow the chosen side
+    const yes = base.filter((r) => r.attending === 'Có');
+    const no = base.filter((r) => r.attending !== 'Có');
     const people = yes.reduce((sum, r) => sum + (Number(r.guests) || 0), 0);
-    const bySide = (side) => yes.filter((r) => r.side === side).reduce((s, r) => s + (Number(r.guests) || 0), 0);
+    const bySide = (side) => rsvps.filter((r) => r.attending === 'Có' && r.side === side).reduce((s, r) => s + (Number(r.guests) || 0), 0);
+    const title = sideFilter ? ` (${sideFilter.toLowerCase()})` : '';
     const cards = [
-      ['Tổng số người sẽ đến', people, true],
+      [`Tổng số người sẽ đến${title}`, people, true],
       ['Lượt xác nhận sẽ đến', yes.length],
       ['Lượt không đến', no.length],
-      ['Khách nhà trai', bySide('Nhà trai')],
-      ['Khách nhà gái', bySide('Nhà gái')],
     ];
+    if (!sideFilter) cards.push(['Khách nhà trai', bySide('Nhà trai')], ['Khách nhà gái', bySide('Nhà gái')]);
     const box = $('#stats');
     box.textContent = '';
     cards.forEach(([label, value, big]) => {
@@ -135,9 +149,8 @@
   function filteredRsvps() {
     const q = $('#q').value.trim().toLowerCase();
     const a = $('#fAttend').value;
-    const s = $('#fSide').value;
     return rsvps.filter((r) =>
-      (!a || r.attending === a) && (!s || r.side === s) &&
+      (!a || r.attending === a) && (!sideFilter || r.side === sideFilter) &&
       (!q || `${r.name} ${r.note || ''}`.toLowerCase().includes(q)));
   }
 
@@ -255,7 +268,12 @@
     $('#refresh').addEventListener('click', loadAll);
     $('#q').addEventListener('input', renderRsvps);
     $('#fAttend').addEventListener('change', renderRsvps);
-    $('#fSide').addEventListener('change', renderRsvps);
+    document.querySelectorAll('#sideSeg .seg__btn').forEach((btn) => btn.addEventListener('click', () => {
+      sideFilter = btn.dataset.side;
+      renderSeg();
+      renderStats();
+      renderRsvps();
+    }));
     $('#csv').addEventListener('click', exportCsv);
     document.querySelectorAll('.tab').forEach((tab) => tab.addEventListener('click', () => {
       document.querySelectorAll('.tab').forEach((t) => t.classList.toggle('on', t === tab));

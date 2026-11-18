@@ -44,6 +44,12 @@
       <button id="logout" class="btn" type="button">Đăng xuất</button>
     </div>
 
+    <div class="seg" id="sideSeg" role="group" aria-label="Lọc theo bên">
+      <button class="seg__btn on" data-side="" type="button">Tất cả</button>
+      <button class="seg__btn" data-side="Nhà trai" type="button">Nhà trai</button>
+      <button class="seg__btn" data-side="Nhà gái" type="button">Nhà gái</button>
+    </div>
+
     <div id="stats" class="stats"></div>
 
     <div class="tabs" role="tablist">
@@ -58,11 +64,6 @@
           <option value="">Tất cả</option>
           <option value="Có">Sẽ đến</option>
           <option value="Không">Không đến</option>
-        </select>
-        <select id="fSide" aria-label="Lọc theo bên">
-          <option value="">Cả hai bên</option>
-          <option value="Nhà trai">Nhà trai</option>
-          <option value="Nhà gái">Nhà gái</option>
         </select>
         <button id="csv" class="btn" type="button">Xuất Excel (CSV)</button>
       </div>
