@@ -1,6 +1,17 @@
 (function () {
   'use strict';
 
+  // Always start at the top: do not let the browser restore an old scroll position (e.g. the gift box at the bottom).
+  if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+  const toTop = () => {
+    const root = document.documentElement;
+    const prev = root.style.scrollBehavior;
+    root.style.scrollBehavior = 'auto';           // jump instantly, even though the CSS uses smooth scrolling
+    window.scrollTo(0, 0);
+    root.style.scrollBehavior = prev;
+  };
+  toTop();
+
   const CFG = window.WEDDING_CONFIG;
   const $ = (sel, root = document) => root.querySelector(sel);
   const $$ = (sel, root = document) => Array.from(root.querySelectorAll(sel));
@@ -434,8 +445,11 @@
     }
 
     $('#openBtn').addEventListener('click', () => {
+      toTop();                                    // the invitation always opens at its first page
       cover.classList.add('is-opening', 'is-open');
       document.body.classList.remove('is-locked');
+      toTop();
+      requestAnimationFrame(toTop);
       if (CFG.music) {
         musicBtn.hidden = false;
         audio.play().catch(() => {});
@@ -480,6 +494,9 @@
 
   renderStatic();
   renderEvent();
+  // Keep the gift box low-key: no section at all until bank details are filled in config.js.
+  const hasGift = Object.values(CFG.gift || {}).some((g) => g && (g.accountNumber || g.qr));
+  $('.gift').hidden = !hasGift;
   renderAlbum();
   setupLightbox();
   setupForms();
