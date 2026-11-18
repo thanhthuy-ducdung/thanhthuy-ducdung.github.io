@@ -10,6 +10,10 @@ Mọi thông tin nằm trong `config.js` (tên, cha mẹ, ngày giờ, địa đ
 - Ảnh: bỏ file vào `assets/album/web/` rồi ghi vào `album.photos`, ví dụ `["assets/album/web/01.jpg"]`. Ảnh cặp đôi ở `couple.photo`.
 - Khi chưa có ảnh, thiệp hiện khung trống.
 
+## Nhạc nền
+
+Nhạc phát khi khách bấm "Mở thiệp", lặp lại liên tục, có nút nhỏ ở góc để bật hoặc tắt. File nằm ở `assets/music.mp3` (khoảng 53 giây, piano nhẹ), được tạo riêng bằng code cho thiệp này nên không vướng bản quyền. Muốn đổi bài, thay file đó hoặc sửa `music` trong `config.js`. Chỉ dùng bài bạn được phép đăng công khai. Điện thoại không cho nhạc tự phát nếu khách chưa chạm vào trang, vì vậy nhạc chỉ bắt đầu sau khi khách bấm "Mở thiệp".
+
 ## Đưa lên mạng (GitHub Pages, miễn phí)
 
 1. Tạo repo trên GitHub (chế độ **Public**), đẩy toàn bộ thư mục này lên nhánh `main`.

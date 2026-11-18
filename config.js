@@ -73,9 +73,9 @@ window.WEDDING_CONFIG = {
     bride: { bank: "", accountName: "", accountNumber: "", qr: "" },
   },
 
-  // Background music file, e.g. "assets/music.mp3". "" = no music.
-  // Only use a track you are allowed to publish.
-  music: "",
+  // Background music file. "" = no music. This track was synthesized for this site (no copyright);
+  // if you replace it, only use a track you are allowed to publish.
+  music: "assets/music.mp3",
 
   // Google Apps Script web app address that receives RSVPs and wishes.
   // While this is empty, RSVPs and wishes are only kept in the visitor's own browser (nobody receives them).
