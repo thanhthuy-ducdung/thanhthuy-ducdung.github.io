@@ -91,6 +91,11 @@ td.num { text-align: center; }
 .msg.ok { color: var(--ok); }
 
 @media (max-width: 720px) {
+  /* phone: the email on its own line, then "Làm mới" and "Đăng xuất" side by side, equal width */
+  .bar { gap: 8px; }
+  .bar .who { flex: 1 1 100%; }
+  .bar .spacer { display: none; }
+  .bar .btn { flex: 1 1 0; min-width: 0; }
   .toolbar { grid-template-columns: 1fr; }
   table, thead, tbody, tr, td { display: block; }
   thead { display: none; }
